@@ -100,26 +100,27 @@ Redis OM will only work if Redis Stack modules are loaded.
 
 Redis OM entities are defined using `@Document`.
 
-```java
-@Document("product")
-public class Product {
-
-    @Id
-    private String id;
-
-    @Indexed
-    private String sku;
-
-    @Indexed
-    private String name;
-}
+```kotlin
+@Document(value = "product")
+@IndexingOptions(indexName = "idx:product", creationMode = IndexCreationMode.DROP_AND_RECREATE)
+data class Product(
+        @Id
+        @Indexed
+        var id: String,
+        @Indexed
+        var sku: String,
+        @Searchable
+        var name: String,
+        var price: Double?
+)
 ```
 
 ### Annotation meanings
 
 * `@Document` → marks the class as a Redis OM entity
 * `@Id` → unique identifier (used in Redis key)
-* `@Indexed` → creates searchable fields in RediSearch
+* `@Indexed` → creates searchable fields in RedisSearch
+* `@Searchable` → non-full text search 
 
 Redis stores this object as **JSON**, not as a hash.
 
