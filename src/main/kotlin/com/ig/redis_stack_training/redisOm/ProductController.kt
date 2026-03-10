@@ -18,4 +18,17 @@ class ProductController {
 
     @PutMapping
     fun updateProduct(@RequestBody request: Product): Product = productService.updateProduct(request)
+
+    @GetMapping("/all")
+    fun getAll(): List<Product> = productService.getAll()
+
+    @GetMapping("/search/name")
+    fun searchByName(@RequestParam name: String): List<Product> {
+        return productService.searchByName(name)
+    }
+
+    @GetMapping("/search/sku")
+    fun searchBySku(@RequestParam sku: String): List<Product> {
+        return productService.searchBySku(sku)
+    }
 }

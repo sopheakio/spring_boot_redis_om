@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ProductRepository: RedisDocumentRepository<Product, String> {
     override fun findAll(): List<Product>
+    fun findByNameContaining(name: String): List<Product>
+    fun findBySku(sku: String): List<Product>
 }

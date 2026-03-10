@@ -23,4 +23,14 @@ class ProductService {
         product.name = request.name
         return productRepository.save(product)
     }
+
+    fun getAll(): List<Product> = productRepository.findAll()
+
+    fun searchByName(name: String): List<Product> {
+        return productRepository.findByNameContaining(name)
+    }
+
+    fun searchBySku(sku: String): List<Product> {
+        return productRepository.findBySku(sku)
+    }
 }
